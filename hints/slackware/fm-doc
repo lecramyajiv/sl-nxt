@@ -1,0 +1,23 @@
+fontmake -u Auvaiyar-BoldItalic.ufo -o ttf --output-dir /home/ben/nlcl
+fontmake -u Auvaiyar-BoldItalic.ufo -o otf --output-dir /home/ben/nlcl
+pyftsubset input.ttf --flavor=woff2 --output-file=output.woff2
+
+
+
+fontmake -o otf -m your.designspace
+fontmake -o variable -m your.designspace --output-dir output_directory
+fontmake -o otf -m your.designspace --output-dir output_directory
+
+
+
+
+
+
+:The copyright was normalized for storage in the CFF table and consequently some characters 
+were dropped: 'This Font Software is Copyright c 2009-2023, NLCI http:www.nlci.infonts
+with Reserved Font Names "ThiruValluvar" and "Auvaiyar" and "Vaigai" and "NLCI".
+Latin glyphs in ThiruValluvar and Auvaiyar are Copyright c 2003-2019, SIL International http:www.sil.org
+with Reserved Font Names "Gentium" and "SIL".
+Latin glyphs in Vaigai are Copyright c 1997-2019, SIL International http:www.sil.org
+with Reserved Font Names "Charis" and "SIL".
+
