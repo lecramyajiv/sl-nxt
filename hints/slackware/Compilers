@@ -309,3 +309,17 @@ GCC Hardening
 PREPROCESS="-Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS"
 HARDENING="-fexceptions -fstack-protector-strong -fstack-clash-protection -mindirect-branch=thunk -mfunction-return=thunk -mneeded -fPIE"
 SLDFLAGS="-pie -Wl,-z,relro -Wl,-z,separate-code -Wl,-z,now -Wl,-z,nodlopen -Wl,-z,nodump -Wl,-z,noexecstack -Wl,-z,noexecheap -Wl,-z,defs"
+
+
+validation of some hardening features:
+--------------------------------------------
+
+file winff
+winff: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, stripped
+
+readelf -d winff | grep BIND
+ 0x0000000000000018 (BIND_NOW)
+
+ objdump -x winff | grep RELRO
+  RELRO off    0x0000000000446508 vaddr 0x0000000000447508 paddr 0x0000000000447508 align 2**0
+
