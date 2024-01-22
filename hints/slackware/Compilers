@@ -326,3 +326,9 @@ readelf -d winff | grep BIND
 
 
  gh repo create fonts-gurmukhi-extra -c -d "Extra Gurmukhi fonts for Slackware Linux" --public --add-readme
+
+ gh repo edit  fonts-gurmukhi-extra  --add-topic ttf
+
+ From the repo dir locally
+
+  gh release create 1.0 --latest --title "Gujarati Fonts for Slackware Linux" --target main
