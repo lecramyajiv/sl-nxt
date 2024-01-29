@@ -1,0 +1,86 @@
+Manually
+
+First, create a folder which will contain the chroot:
+
+mkdir /chroot_folder
+
+Mount the installation ISO:
+
+mount -o loop slackware-14.1-install-dvd.iso /mnt/cdrom
+cd /mnt/cdrom
+
+After the ISO has been mounted, the packages (found under the slackware or slackware64 folder) can be installed to the chroot folder with:
+
+installpkg --root /chroot-folder */*.t?z
+
+Then unmount the ISO:
+
+umount /mnt/cdrom
+
+Setting up required files
+fstab
+
+The following minimal snippet can be used for /chroot_folder/etc/fstab
+
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+tmpfs           /dev/shm        tmpfs    defaults        0      0
+devpts          /dev/pts        devpts   noexec,nosuid,gid=tty,mode=0620  0      0
+sysfs           /sys            sysfs    defaults        0      0
+proc            /proc           proc     defaults        0      0
+
+Entering the Chroot
+Automatic mount
+
+To have the chroot mounted permanently, add the following to your host system's /etc/fstab:
+
+/dev             chroot_folder/dev             none bind,auto 0 0
+/proc            chroot_folder/proc            none bind,auto 0 0
+/sys             chroot_folder/sys             none bind,auto 0 0
+/etc/resolv.conf chroot_folder/etc/resolv.conf none bind,auto 0 0
+
+And reboot. Then run the following command to mount the chroot folder:
+
+mount /chroot_folder
+
+Entering the Chroot
+
+Now that the chroot is set up, one can chroot into it:
+
+chroot /chroot_folder /bin/bash
+
+exiting
+
+When you're done, exited the chroot by pressing Ctrl+d.
+Usecase: Building 32-bit Packages
+Mounting partitions
+
+I use a chroot to build 32-bit packages on a 64-bit system. I needed to mount the partition which contained the SlackBuilds for which I wanted to make a package, As my Slackware host mount point is (in this example) at /slackware_host_mount_point, I used the command:
+
+mount -B /slackware_host_mount_point /chroot_folder
+
+(http://www.thegeekstuff.com/2013/01/mount-umount-examples/)
+
+Then I built the package by executing the Slackbuild as follows:
+
+ARCH=i686 ./my_package.SlackBuild
+
+An alternative way to build other ARCH packages
+
+Instead of using `ARCH=i686' before running a slackbuild, we can use a program called `setarch', which, among other things, can set the ARCH and the kernel version in the shell. It has some handy symlinks, such as linux32 or i586, which saves some typing. The `linux32' command will set the reported kernel's ARCH as `i686'.
+
+SYNOPSIS
+
+  setarch arch [options] [program [argument...]]
+
+When we run `linux32' it starts a new shell, so we can also use it to chroot:
+
+  chroot /path/to/chroot linux32 /bin/zsh
+
+or it could be run after chrooting into our new root. Settings will revert to normal when we exit the new shell. One useful option is to change the kernel's reported version:
+
+  chroot /path/to/chroot linux32 --uname-2.6 /bin/zsh
+
+That `–uname-2.6' isn't a typo, there has to be a dash between the flag and the version. The setarch(8) man page shows all the options.
+
+– Dave
+
