@@ -1,0 +1,3 @@
+/usr/bin/ld: warning: -z seperate-code ignored
+/usr/bin/ld: warning: -z noexecheap ignored
+

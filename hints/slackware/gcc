@@ -1,0 +1,576 @@
+-fdelete-dead-exceptions
+Consider that instructions that may throw exceptions but don’t otherwise con-
+tribute to the execution of the program can be optimized away. This option
+is enabled by default for the Ada compiler, as permitted by the Ada language
+specification. Optimization passes that cause dead exceptions to be removed
+are enabled independently at different optimization levels.
+
+-fno-gnu-unique
+On systems with recent GNU assembler and C library, the C++ compiler uses
+the STB_GNU_UNIQUE binding to make sure that definitions of template static
+data members and static local variables in inline functions are unique even in
+the presence of RTLD_LOCAL; this is necessary to avoid problems with a library
+used by two different RTLD_LOCAL plugins depending on a definition in one of
+them and therefore disagreeing with the other one about the binding of the
+symbol. But this causes dlclose to be ignored for affected DSOs; if your
+program relies on reinitialization of a DSO via dlclose and dlopen, you can
+use ‘-fno-gnu-unique’.
+
+-fexceptions
+Enable exception handling. Generates extra code needed to propagate excep-
+tions. For some targets, this implies GCC generates frame unwind information
+for all functions, which can produce significant data size overhead, although
+it does not affect execution. If you do not specify this option, GCC enables
+it by default for languages like C++ that normally require exception handling,
+and disables it for languages like C that do not normally require it. However,
+you may need to enable this option when compiling C code that needs to inter-
+operate properly with exception handlers written in C++. You may also wish
+to disable this option if you are compiling older C++ programs that don’t use
+exception handling.
+
+-fstrict-overflow
+This option implies ‘-fno-wrapv’ ‘-fno-wrapv-pointer’ and when negated
+implies ‘-fwrapv’ ‘-fwrapv-pointer’.
+
+
+
+-fvtable-verify=[std|preinit|none]
+This option is only available when compiling C++ code. It turns on (or off, if
+using ‘-fvtable-verify=none’) the security feature that verifies at run time,
+for every virtual call, that the vtable pointer through which the call is made
+is valid for the type of the object, and has not been corrupted or overwritten.
+If an invalid vtable pointer is detected at run time, an error is reported and
+execution of the program is immediately halted.
+This option causes run-time data structures to be built at program startup,
+which are used for verifying the vtable pointers. The options ‘std’ and
+‘preinit’ control the timing of when these data structures are built. In both
+cases the data structures are built before execution reaches main. Using
+‘-fvtable-verify=std’ causes the data structures to be built after shared
+libraries have been loaded and initialized. ‘-fvtable-verify=preinit’ causes
+them to be built before shared libraries have been loaded and initialized.
+If this option appears multiple times in the command line with different values
+specified, ‘none’ takes highest priority over both ‘std’ and ‘preinit’; ‘preinit’
+takes priority over ‘std’.
+
+
+-fsplit-stack
+Generate code to automatically split the stack before it overflows. The resulting
+program has a discontiguous stack which can only overflow if the program is
+unable to allocate any more memory. This is most useful when running threaded
+programs, as it is no longer necessary to calculate a good stack size to use for
+each thread. This is currently only implemented for the x86 targets running
+GNU/Linux.
+When code compiled with ‘-fsplit-stack’ calls code compiled without
+‘-fsplit-stack’, there may not be much stack space available for the
+latter code to run. If compiling all code, including library code, with
+‘-fsplit-stack’ is not an option, then the linker can fix up these calls so that
+the code compiled without ‘-fsplit-stack’ always has a large stack. Support
+for this is implemented in the gold linker in GNU binutils release 2.21 and
+later.
+
+-fno-stack-limit
+Generate code to ensure that the stack does not grow beyond a certain value,
+either the value of a register or the address of a symbol. If a larger stack is
+required, a signal is raised at run time. For most targets, the signal is raised
+before the stack overruns the boundary, so it is possible to catch the signal
+without taking special precautions.
+For instance, if the stack starts at absolute address ‘0x80000000’ and grows
+downwards, you can use the flags ‘-fstack-limit-symbol=__stack_limit’
+and ‘-Wl,--defsym,__stack_limit=0x7ffe0000’ to enforce a stack limit of
+128KB. Note that this may only work with the GNU linker.
+You can locally override stack limit checking by using the no_stack_limit
+function attribute (see Section 6.33 [Function Attributes], page 531).
+
+-fstack-clash-protection
+Generate code to prevent stack clash style attacks. When this option is enabled,
+the compiler will only allocate one page of stack space at a time and each page
+is accessed immediately after allocation. Thus, it prevents allocations from
+jumping over any stack guard page provided by the operating system.
+Most targets do not fully support stack clash protection. However, on those
+targets ‘-fstack-clash-protection’ will protect dynamic stack allocations.
+‘-fstack-clash-protection’ may also provide limited protection for static
+stack allocations if the target supports ‘-fstack-check=specific’.
+
+-fstack-protector
+Emit extra code to check for buffer overflows, such as stack smashing attacks.
+This is done by adding a guard variable to functions with vulnerable objects.
+This includes functions that call alloca, and functions with buffers larger than
+or equal to 8 bytes. The guards are initialized when a function is entered and
+then checked when the function exits. If a guard check fails, an error message
+is printed and the program exits. Only variables that are actually allocated
+on the stack are considered, optimized away variables or variables allocated in
+registers don’t count.
+
+-fstack-protector-all
+Like ‘-fstack-protector’ except that all functions are protected.
+
+-fstack-protector-strong
+Like ‘-fstack-protector’ but includes additional functions to be protected —
+those that have local array definitions, or have references to local frame ad-
+dresses. Only variables that are actually allocated on the stack are considered,
+optimized away variables or variables allocated in registers don’t count.
+
+-fstack-protector-explicit
+Like ‘-fstack-protector’ but only protects those functions which have the
+stack_protect attribute.
+
+-fcf-protection=[full|branch|return|none|check]
+Enable code instrumentation of control-flow transfers to increase program se-
+curity by checking that target addresses of control-flow transfer instructions
+(such as indirect function call, function return, indirect jump) are valid. This
+prevents diverting the flow of control to an unexpected target. This is intended
+to protect against such threats as Return-oriented Programming (ROP), and
+similarly call/jmp-oriented programming (COP/JOP).
+The value branch tells the compiler to implement checking of validity of control-
+flow transfer at the point of indirect branch instructions, i.e. call/jmp instruc-
+tions. The value return implements checking of validity at the point of return-
+ing from a function. The value full is an alias for specifying both branch and
+return. The value none turns off instrumentation.
+The value check is used for the final link with link-time optimization (LTO). An
+error is issued if LTO object files are compiled with different ‘-fcf-protection’
+values. The value check is ignored at the compile time.
+The macro __CET__ is defined when ‘-fcf-protection’ is used. The first bit
+of __CET__ is set to 1 for the value branch and the second bit of __CET__ is set
+to 1 for the return.
+You can also use the nocf_check attribute to identify which functions and calls
+should be skipped from insrumentation (see Section 6.33 [Function Attributes],
+page 531).
+Currently the x86 GNU/Linux target provides an implementation based on Intel
+Control-flow Enforcement Technology (CET) which works for i686 processor or
+newer.
+
+-fomit-frame-pointer
+Omit the frame pointer in functions that don’t need one. This avoids the
+instructions to save, set up and restore the frame pointer; on many targets it
+also makes an extra register available.
+On some targets this flag has no effect because the standard calling sequence
+always uses a frame pointer, so it cannot be omitted.
+Note that ‘-fno-omit-frame-pointer’ doesn’t guarantee the frame pointer is
+used in all functions. Several targets always omit the frame pointer in leaf
+functions.
+Enabled by default at ‘-O’ and higher.
+
+-finline-functions: This option encourages the compiler to inline functions, which can eliminate the overhead of function calls and improve performance by reducing code size and improving cache locality. Enabled by default at ‘-O2’ and higher.
+
+-ftrapv
+
+This option generates traps for signed overflow on addition, subtraction, multi-
+plication operations. The options ‘-ftrapv’ and ‘-fwrapv’ override each other,
+so using ‘-ftrapv’ ‘-fwrapv’ on the command-line results in ‘-fwrapv’ being
+effective. Note that only active options override, so using ‘-ftrapv’ ‘-fwrapv’
+‘-fno-wrapv’ on the command-line results in ‘-ftrapv’ being effective
+
+-fwrapv.
+This option instructs the compiler to assume that signed arithmetic overflow of
+addition, subtraction and multiplication wraps around using twos-complement
+representation. This flag enables some optimizations and disables others.
+The options ‘-ftrapv’ and ‘-fwrapv’ override each other, so using ‘-ftrapv’
+‘-fwrapv’ on the command-line results in ‘-fwrapv’ being effective. Note that
+only active options override, so using ‘-ftrapv’ ‘-fwrapv’ ‘-fno-wrapv’ on the
+command-line results in ‘-ftrapv’ being effective.
+
+-fwrapv-pointer
+This option instructs the compiler to assume that pointer arithmetic overflow on
+addition and subtraction wraps around using twos-complement representation.
+This flag disables some optimizations which assume pointer overflow is invalid.
+
+-pie
+ Produce a dynamically linked position independent executable on targets that
+support it. For predictable results, you must also specify the same set of options
+used for compilation (‘-fpie’, ‘-fPIE’, or model suboptions) when you specify
+this linker option.
+
+
+-D name
+ Predefine name as a macro, with definition 1.
+
+ -D name=definition
+
+ The contents of definition are tokenized and processed as if they appeared dur-
+ing translation phase three in a ‘#define’ directive. In particular, the definition
+is truncated by embedded newline characters.
+If you are invoking the preprocessor from a shell or shell-like program you may
+need to use the shell’s quoting syntax to protect characters such as spaces that
+have a meaning in the shell syntax.
+If you wish to define a function-like macro on the command line, write its
+argument list with surrounding parentheses before the equals sign (if any).
+Parentheses are meaningful to most shells, so you should quote the option.
+With sh and csh, ‘-D’name(args...)=definition’’ works.
+‘-D’ and ‘-U’ options are processed in the order they are given on the command
+line. All ‘-imacros file’ and ‘-include file’ options are processed after all
+‘-D’ and ‘-U’ options.
+
+
+_GLIBCXX_ASSERTIONS
+
+    Undefined by default. When defined, enables extra error checking in the form of precondition assertions, such as bounds checking in strings and null pointer checks when dereferencing smart pointers.
+
+-U  name
+    Cancel any previous definition of name, either built in or provided with a ‘-D’
+option.
+
+https://www.gnu.org/software/libc/manual/html_node/Source-Fortification.html
+https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_macros.html
+
+-Wp,option
+You can use ‘-Wp,option’ to bypass the compiler driver and pass option directly
+through to the preprocessor. If option contains commas, it is split into multiple
+options at the commas. However, many options are modified, translated or
+interpreted by the compiler driver before being passed to the preprocessor,
+and ‘-Wp’ forcibly bypasses this phase. The preprocessor’s direct interface is
+undocumented and subject to change, so whenever possible you should avoid
+using ‘-Wp’ and let the driver handle the options instead.
+
+
+CPPFLAGS="-O2 -D_FORTIFY_SOURCE=2"
+
+
+
+-fcommon
+ In C code, this option controls the placement of global variables defined with-
+out an initializer, known as tentative definitions in the C standard. Tentative
+definitions are distinct from declarations of a variable with the extern keyword,
+which do not allocate storage.
+The default is ‘-fno-common’, which specifies that the compiler places unini-
+tialized global variables in the BSS section of the object file. This inhibits the
+merging of tentative definitions by the linker so you get a multiple-definition
+error if the same variable is accidentally defined in more than one compilation
+unit.
+The ‘-fcommon’ places uninitialized global variables in a common block. This
+allows the linker to resolve all tentative definitions of the same variable in
+different compilation units to the same object, or to a non-tentative definition.
+This behavior is inconsistent with C++, and on many targets implies a speed
+and code size penalty on global variable references. It is mainly useful to enable
+legacy code to link without errors.
+
+
+-fstack-check
+Generate code to verify that you do not go beyond the boundary of the stack.
+You should specify this flag if you are running in an environment with multiple
+threads, but you only rarely need to specify it in a single-threaded environment
+since stack overflow is automatically detected on nearly all systems if there is
+only one stack.
+Note that this switch does not actually cause checking to be done; the operating
+system or the language runtime must do that. The switch causes generation of
+code to ensure that they see the stack being extended.
+You can additionally specify a string parameter: ‘no’ means no checking,
+‘generic’ means force the use of old-style checking, ‘specific’ means use the
+best checking method and is equivalent to bare ‘-fstack-check’.
+Old-style checking is a generic mechanism that requires no specific target sup-
+port in the compiler but comes with the following drawbacks:
+1. Modified allocation strategy for large objects: they are always allocated
+dynamically if their size exceeds a fixed threshold. Note this may change
+the semantics of some code.
+2. Fixed limit on the size of the static frame of functions: when it is topped
+by a particular function, stack checking is not reliable and a warning is
+issued by the compiler.
+3. Inefficiency: because of both the modified allocation strategy and the
+generic implementation, code performance is hampered.
+Note that old-style stack checking is also the fallback method for ‘specific’ if
+no target support has been added in the compiler.
+‘-fstack-check=’ is designed for Ada’s needs to detect infinite recursion and
+stack overflows. ‘specific’ is an excellent choice when compiling Ada code.
+It is not generally sufficient to protect against stack-clash attacks. To protect
+against those you want ‘-fstack-clash-protection’.
+
+-fpic
+Generate position-independent code (PIC) suitable for use in a shared library,
+if supported for the target machine. Such code accesses all constant addresses
+through a global offset table (GOT). The dynamic loader resolves the GOT
+entries when the program starts (the dynamic loader is not part of GCC; it
+is part of the operating system). If the GOT size for the linked executable
+exceeds a machine-specific maximum size, you get an error message from the
+linker indicating that ‘-fpic’ does not work; in that case, recompile with ‘-fPIC’
+instead. (These maximums are 8k on the SPARC, 28k on AArch64 and 32k on
+the m68k and RS/6000. The x86 has no such limit.)
+Position-independent code requires special support, and therefore works only on
+certain machines. For the x86, GCC supports PIC for System V but not for the
+Sun 386i. Code generated for the IBM RS/6000 is always position-independent.
+When this flag is set, the macros __pic__ and __PIC__ are defined to 1.
+
+-fPIC
+
+If supported for the target machine, emit position-independent code, suitable
+for dynamic linking and avoiding any limit on the size of the global offset table.
+This option makes a difference on AArch64, m68k, PowerPC and SPARC.
+Position-independent code requires special support, and therefore works only
+on certain machines.
+When this flag is set, the macros __pic__ and __PIC__ are defined to 2.
+
+-fpie and -fPIE
+
+These options are similar to ‘-fpic’ and ‘-fPIC’, but the generated position-
+independent code can be only linked into executables. Usually these options
+are used to compile code that will be linked using the ‘-pie’ GCC option
+‘-fpie’ and ‘-fPIE’ both define the macros __pie__ and __PIE__. The macros
+have the value 1 for ‘-fpie’ and 2 for ‘-fPIE’.
+
+-fno-plt
+Do not use the PLT for external function calls in position-independent code.
+Instead, load the callee address at call sites from the GOT and branch to it.
+This leads to more efficient code by eliminating PLT stubs and exposing GOT
+loads to optimizations. On architectures such as 32-bit x86 where PLT stubs
+expect the GOT pointer in a specific register, this gives more register allocation
+freedom to the compiler. Lazy binding requires use of the PLT; with ‘-fno-plt’
+all external symbols are resolved at load time.
+Alternatively, the function attribute noplt can be used to avoid calls through
+the PLT for specific external functions.
+In position-dependent code, a few targets also convert calls to functions that
+are marked to not use the PLT to use the GOT instead.
+
+-fno-jump-tables
+Do not use jump tables for switch statements even where it would be more effi-
+cient than other code generation strategies. This option is of use in conjunction
+with ‘-fpic’ or ‘-fPIC’ for building code that forms part of a dynamic linker
+and cannot reference the address of a jump table. On some targets, jump tables
+do not require a GOT and this option is not needed.
+
+-fvisibility=[default|internal|hidden|protected]
+Set the default ELF image symbol visibility to the specified option—all symbols
+are marked with this unless overridden within the code. Using this feature can
+very substantially improve linking and load times of shared object libraries,
+produce more optimized code, provide near-perfect API export and prevent
+symbol clashes. It is strongly recommended that you use this in any shared
+objects you distribute.
+Despite the nomenclature, ‘default’ always means public; i.e., available to be
+linked against from outside the shared object. ‘protected’ and ‘internal’ are
+pretty useless in real-world usage so the only other commonly used option is
+‘hidden’. The default if ‘-fvisibility’ isn’t specified is ‘default’, i.e., make
+every symbol public.
+A good explanation of the benefits offered by ensuring ELF symbols have
+the correct visibility is given by “How To Write Shared Libraries” by Ulrich
+Drepper (which can be found at https://www.akkadia.org/drepper/)—
+however a superior solution made possible by this option to marking things
+hidden when the default is public is to make the default hidden and
+mark things public. This is the norm with DLLs on Windows and with
+‘-fvisibility=hidden’ and __attribute__ ((visibility("default")))
+instead of __declspec(dllexport) you get almost identical semantics with
+identical syntax. This is a great boon to those working with cross-platform
+projects.
+
+For those adding visibility support to existing code, you may find #pragma GCC
+visibility of use. This works by you enclosing the declarations you wish
+to set visibility for with (for example) #pragma GCC visibility push(hidden)
+and #pragma GCC visibility pop. Bear in mind that symbol visibility should
+be viewed as part of the API interface contract and thus all new code should
+always specify visibility when it is not the default; i.e., declarations only for
+use within the local DSO should always be marked explicitly as hidden as so
+to avoid PLT indirection overheads—making this abundantly clear also aids
+readability and self-documentation of the code. Note that due to ISO C++
+specification requirements, operator new and operator delete must always
+be of default visibility.
+Be aware that headers from outside your project, in particular system head-
+ers and headers from any other library you use, may not be expecting to be
+compiled with visibility other than the default. You may need to explicitly say
+#pragma GCC visibility push(default) before including any such headers.
+extern declarations are not affected by ‘-fvisibility’, so a lot of code can be
+recompiled with ‘-fvisibility=hidden’ with no modifications. However, this
+means that calls to extern functions with no explicit visibility use the PLT, so
+it is more effective to use __attribute ((visibility)) and/or #pragma GCC
+visibility to tell the compiler which extern declarations should be treated
+as hidden.
+Note that ‘-fvisibility’ does affect C++ vague linkage entities. This means
+that, for instance, an exception class that is be thrown between DSOs must
+be explicitly marked with default visibility so that the ‘type_info’ nodes are
+unified between the DSOs.
+An overview of these techniques, their benefits and how to use them is at
+http://gcc.gnu.org/wiki/Visibility.
+
+-march=cpu-type
+‘native’
+This selects the CPU to generate code for at compilation time by
+determining the processor type of the compiling machine. Using
+‘-march=native’ enables all instruction subsets supported by the
+local machine (hence the result might not run on different ma-
+chines). Using ‘-mtune=native’ produces code optimized for the
+local machine under the constraints of the selected instruction set.
+
+‘x86-64’
+ A generic CPU with 64-bit extensions
+
+ -mtune=cpu-type
+Tune to cpu-type everything applicable about the generated code, except for
+the ABI and the set of available instructions. While picking a specific cpu-type
+schedules things appropriately for that particular chip, the compiler does not
+generate any code that cannot run on the default machine type unless you use
+‘-march=cpu-type’ option. For example, if GCC is configured for i686-pc-
+linux-gnu then ‘-mtune=pentium4’ generates code that is tuned for Pentium 4
+but still runs on i686 machines.
+The choices for cpu-type are the same as for ‘-march’. In addition, ‘-mtune’
+supports 2 extra choices for cpu-type:
+‘generic’
+ Produce code optimized for the most common IA32/AMD64/
+EM64T processors. If you know the CPU on which your code will
+run, then you should use the corresponding ‘-mtune’ or ‘-march’
+option instead of ‘-mtune=generic’. But, if you do not know
+exactly what CPU users of your application will have, then you
+should use this option.
+As new processors are deployed in the marketplace, the behavior of
+this option will change. Therefore, if you upgrade to a newer version
+of GCC, code generation controlled by this option will change to
+reflect the processors that are most common at the time that version
+of GCC is released.
+There is no ‘-march=generic’ option because ‘-march’ indicates
+the instruction set the compiler can use, and there is no generic
+instruction set applicable to all processors. In contrast, ‘-mtune’
+indicates the processor (or, in this case, collection of processors) for
+which the code is optimized.
+
+-mstackrealign
+Realign the stack at entry. On the x86, the ‘-mstackrealign’ option generates
+an alternate prologue and epilogue that realigns the run-time stack if necessary.
+This supports mixing legacy codes that keep 4-byte stack alignment with mod-
+ern codes that keep 16-byte stack alignment for SSE compatibility. See also the
+attribute force_align_arg_pointer, applicable to individual functions.
+
+The ‘-mshstk’ option enables shadow stack built-in functions from x86 Control-
+flow Enforcement Technology (CET).
+
+-momit-leaf-frame-pointer
+Don’t keep the frame pointer in a register for leaf functions. This avoids the in-
+structions to save, set up, and restore frame pointers and makes an extra register
+available in leaf functions. The option ‘-fomit-leaf-frame-pointer’ removes
+the frame pointer for leaf functions, which might make debugging harder.
+
+-mstack-protector-guard=guard
+-mstack-protector-guard-reg=reg
+-mstack-protector-guard-offset=offset
+Generate stack protection code using canary at guard. Supported locations
+are ‘global’ for global canary or ‘tls’ for per-thread canary in the TLS block
+(the default). This option has effect only when ‘-fstack-protector’ or
+‘-fstack-protector-all’ is specified.
+With the latter choice the options ‘-mstack-protector-guard-reg=reg’ and
+‘-mstack-protector-guard-offset=offset’ furthermore specify which seg-
+ment register (%fs or %gs) to use as base register for reading the canary, and
+from what offset from that base register. The default for those is as specified
+in the relevant ABI.
+
+-mindirect-branch=choice
+Convert indirect call and jump with choice. The default is ‘keep’, which keeps
+indirect call and jump unmodified. ‘thunk’ converts indirect call and jump
+to call and return thunk. ‘thunk-inline’ converts indirect call and jump to
+inlined call and return thunk. ‘thunk-extern’ converts indirect call and jump
+to external call and return thunk provided in a separate object file. You can
+control this behavior for a specific function by using the function attribute
+indirect_branch. See Section 6.33 [Function Attributes], page 531.
+Note that ‘-mcmodel=large’ is incompatible with ‘-mindirect-branch=thunk’
+and ‘-mindirect-branch=thunk-extern’ since the thunk function may not be
+reachable in the large code model.
+Note that ‘-mindirect-branch=thunk-extern’ is compatible with
+‘-fcf-protection=branch’ since the external thunk can be made to enable
+control-flow check.
+
+-mfunction-return=choice
+Convert function return with choice. The default is ‘keep’, which keeps func-
+tion return unmodified. ‘thunk’ converts function return to call and return
+thunk. ‘thunk-inline’ converts function return to inlined call and return
+thunk. ‘thunk-extern’ converts function return to external call and return
+thunk provided in a separate object file. You can control this behavior for
+a specific function by using the function attribute function_return. See
+Section 6.33 [Function Attributes], page 531.
+Note that ‘-mindirect-return=thunk-extern’ is compatible with
+‘-fcf-protection=branch’ since the external thunk can be made to enable
+control-flow check.
+Note that ‘-mcmodel=large’ is incompatible with ‘-mfunction-return=thunk’
+and ‘-mfunction-return=thunk-extern’ since the thunk function may not be
+reachable in the large code model.
+
+-mneeded
+-mno-needed
+Emit GNU PROPERTY X86 ISA 1 NEEDED GNU property for Linux target
+to indicate the micro-architecture ISA level required to execute the binary.
+
+
+
+
+------------------------------------
+
+ -X
+       --discard-locals
+           Delete all temporary local symbols.  (These symbols start with system-specific local label prefixes, typically .L for
+           ELF systems or L for traditional a.out systems.)
+
+
+  -z keyword
+           The recognized keywords are:
+
+  combreloc
+           nocombreloc
+               Combine multiple dynamic relocation sections and sort to improve dynamic symbol lookup caching.  Do not do this if
+               nocombreloc.
+
+  defs
+               Report unresolved symbol references from regular object files.  This is done even if the linker is creating a non-
+               symbolic shared library.  This option is the inverse of -z undefs.
+
+ initfirst
+               This option is only meaningful when building a shared object.  It marks the object so that its runtime
+               initialization will occur before the runtime initialization of any other objects brought into the process at the
+               same time.  Similarly the runtime finalization of the object will occur after the runtime finalization of any other
+               objects.
+
+ nocopyreloc
+               Disable linker generated .dynbss variables used in place of variables defined in shared libraries.  May result in
+               dynamic text relocations.
+
+     nodlopen
+               Specify that the object is not available to "dlopen".
+
+nodump
+               Specify that the object can not be dumped by "dldump".
+
+noexecstack
+               Marks the object as not requiring executable stack.
+
+now
+
+  When generating an executable or shared library, mark it to tell the dynamic linker to resolve all symbols when the
+               program is started, or when the shared library is loaded by dlopen, instead of deferring function call resolution
+               to the point when the function is first called.
+
+  relro
+           norelro
+               Create an ELF "PT_GNU_RELRO" segment header in the object.  This specifies a memory segment that should be made
+               read-only after relocation, if supported.  Specifying common-page-size smaller than the system page size will
+               render this protection ineffective.  Don't create an ELF "PT_GNU_RELRO" segment if norelro.
+
+   separate-code
+           noseparate-code
+               Create separate code "PT_LOAD" segment header in the object.  This specifies a memory segment that should contain
+               only instructions and must be in wholly disjoint pages from any other data.  Don't create separate code "PT_LOAD"
+               segment if noseparate-code is used.
+ shstk
+               Generate GNU_PROPERTY_X86_FEATURE_1_SHSTK in .note.gnu.property section to indicate compatibility with Intel Shadow
+               Stack.  Supported for Linux/i386 and Linux/x86_64.
+
+  x86-64-baseline
+           x86-64-v2
+           x86-64-v3
+           x86-64-v4
+               Specify the x86-64 ISA level needed in .note.gnu.property section.  x86-64-baseline generates
+               "GNU_PROPERTY_X86_ISA_1_BASELINE".  x86-64-v2 generates "GNU_PROPERTY_X86_ISA_1_V2".  x86-64-v3 generates
+               "GNU_PROPERTY_X86_ISA_1_V3".  x86-64-v4 generates "GNU_PROPERTY_X86_ISA_1_V4".  Supported for Linux/i386 and
+               Linux/x86_64.
+
+
+               --as-needed
+       --no-as-needed
+           This option affects ELF DT_NEEDED tags for dynamic libraries mentioned on the command line after the --as-needed
+           option.  Normally the linker will add a DT_NEEDED tag for each dynamic library mentioned on the command line,
+           regardless of whether the library is actually needed or not.  --as-needed causes a DT_NEEDED tag to only be emitted for
+           a library that at that point in the link satisfies a non-weak undefined symbol reference from a regular object file or,
+           if the library is not found in the DT_NEEDED lists of other needed libraries, a non-weak undefined symbol reference
+           from another needed dynamic library.  Object files or libraries appearing on the command line after the library in
+           question do not affect whether the library is seen as needed.  This is similar to the rules for extraction of object
+           files from archives.  --no-as-needed restores the default behaviour.
+
+           Note: On Linux based systems the --as-needed option also has an affect on the behaviour of the --rpath and --rpath-link
+           options.  See the description of --rpath-link for more details.
+
+
+ --enable-new-dtags
+       --disable-new-dtags
+           This linker can create the new dynamic tags in ELF. But the older ELF systems may not understand them. If you specify
+           --enable-new-dtags, the new dynamic tags will be created as needed and older dynamic tags will be omitted.  If you
+           specify --disable-new-dtags, no new dynamic tags will be created. By default, the new dynamic tags are not created.
+           Note that those options are only available for ELF systems.

@@ -323,6 +323,38 @@ readelf -d winff | grep BIND
  objdump -x winff | grep RELRO
   RELRO off    0x0000000000446508 vaddr 0x0000000000447508 paddr 0x0000000000447508 align 2**0
 
+objdump -s -j .note chafa
+
+chafa:     file format elf64-x86-64
+
+objdump: section '.note' mentioned in a -j option, but not found in any input file
+
+readelf -x .note chafa
+readelf: chafa: Warning: Section '.note' was not dumped because it does not exist
+
+objdump -s -j .comment chafa
+
+chafa:     file format elf64-x86-64
+
+objdump: section '.comment' mentioned in a -j option, but not found in any input file
+
+readelf -x .comment chafa
+
+Hex dump of section '.comment':
+  0x00000000 4743433a 2028474e 55292031 312e322e GCC: (GNU) 11.2.
+  0x00000010 3000                                0.
+
+objdump -s -j .comment chafa
+
+chafa:     file format elf64-x86-64
+
+Contents of section .comment:
+ 0000 4743433a 2028474e 55292031 312e322e  GCC: (GNU) 11.2.
+ 0010 3000                                 0.
+
+
+
+
 
 
  gh repo create fonts-gurmukhi-extra -c -d "Extra Gurmukhi fonts for Slackware Linux" --public --add-readme
@@ -332,3 +364,46 @@ readelf -d winff | grep BIND
  From the repo dir locally
 
   gh release create 1.0 --latest --title "Gujarati Fonts for Slackware Linux" --target main
+
+
+
+
+
+
+
+
+
+  ----------------------------------------------------------------------------
+  To create a patch
+  ----------------------------
+
+Yes, this is a good way to create a patch.
+
+In short:
+
+    To create patch for single file your command may look like
+
+    diff -Naru file_original file_updated > file.patch
+
+    where
+        -N: treat absent files as empty
+        -a: treat all files as text
+        -r: recursively compare any subdirectories found
+        -u: output NUM (default 3) lines of unified context
+
+    To create patch for whole directory:
+
+    diff -crB dir_original dir_updated > dfile.patch
+
+    where
+        -c: output NUM (default 3) lines of copied context
+        -r: recursively compare any subdirectories
+        -B: ignore changes whose lines are all blank
+
+After all to apply this patch one can run
+
+patch -p1 --dry-run < dfile.patch
+
+where switch p instructs patch to strip the path prefix so that files will be identified correctly. In most cases it should be 1.
+
+Remove --dry-run if you are happy from the result printed on the screen.

@@ -1,0 +1,7 @@
+-D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS
+
+-march=x86-64 -mtune=generic -pipe -O2 -fPIC
+
+-fPIE  -fno-common -fvisibility=hidden -fexceptions -fstack-protector-strong -fstack-clash-protection -mindirect-branch=thunk -mfunction-return=thunk -mneeded -pie -Wl,-z,relro -Wl,-z,seperate-code  -Wl,-z,now -Wl,-z,noexecstack -Wl,-z,defs -Wl,-z,nodump -Wl,-z,noexecheap -Wl,--enable-new-dtags
+
+strip --strip-unneeded --remove-section=.comment --remove-section=.note
