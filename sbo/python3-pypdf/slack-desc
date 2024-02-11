@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+             |-----handy-ruler------------------------------------------------------|
+python3-pypdf: python3-pypdf (pure Python library built as a PDF toolkit)
+python3-pypdf:
+python3-pypdf: A pure-python PDF library capable of splitting, merging, cropping,
+python3-pypdf: and transforming the pages of PDF files. It can also add custom
+python3-pypdf: data, viewing options, and passwords to PDF files.
+python3-pypdf: pypdf can retrieve text and metadata from PDFs as well.
+python3-pypdf:
+python3-pypdf: Homepage:https://github.com/py-pdf/pypdf
+python3-pypdf:
+python3-pypdf:
+python3-pypdf:
