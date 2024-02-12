@@ -1,0 +1,11 @@
+freetype-py is an optional dependency
+
+if you do not want to download files from internet
+pass this option to setup.py  --no-download-t1-files
+you can also add verbosity with --verbose option
+
+t1 fontfiles can be found in this address
+https://www.reportlab.com/ftp/pfbfer-20180109.zip
+
+when installing extract the pfb fonts and install it to
+usr/lib64/python3.9/site-packages/reportlab/fonts/
