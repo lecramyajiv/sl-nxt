@@ -407,3 +407,8 @@ patch -p1 --dry-run < dfile.patch
 where switch p instructs patch to strip the path prefix so that files will be identified correctly. In most cases it should be 1.
 
 Remove --dry-run if you are happy from the result printed on the screen.
+
+
+sbopkg queue files
+
+sqg -j 2 -p python3-platformdirs  -o /var/cache/platformdirs

@@ -1,0 +1,5 @@
+if for some reason vulkan causes an error when
+building libplacebo then disable it in slackbuild
+
+-Dvulkan=disabled \
+-Dvk-proc-addr=disabled

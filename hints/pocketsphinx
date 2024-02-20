@@ -1,0 +1,4 @@
+#mkdir -pv $PKG/usr/include/sphinxbase
+cp  $PKG/usr/include/pocketsphinx.h $PKG/usr/include/pocketsphinx
+#cp  $TMP/$PRGNAM-$VERSION/build/include/pocketsphinx/sphinx_config.h  $PKG/usr/include/pocketsphinx
+#cp  $TMP/$PRGNAM-$VERSION/build/include/pocketsphinx/sphinx_config.h  $PKG/usr/include/sphinxbase
