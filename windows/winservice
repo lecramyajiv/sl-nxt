@@ -1,0 +1,484 @@
+Services to be disabled in windows 10
+
+AllJoyn router service:
+
+AllJoyn is a DCOM-like framework and protocol for making remotable method calls
+and/or sending one-way signals between applications on a distributed bus. It is
+intended to be used primarily for Internet of Things type scenarios such as
+turning on/off lights, reading temperatures, etc
+
+AVCTP service:
+
+if you don’t use Bluetooth Audio Device or Wireless Headphones.
+
+Application Layer Gateway Service:
+
+offers support for 3rd party protocol
+plug-ins for Internet Connection Sharing. Modern computers do not need or use
+such features so this service can be safely disabled.
+
+Broadcast DVR Server/BcastDVR
+
+The Broadcast DVR server process is part of Window’s Game DVR feature. This
+feature lets you use the native Windows 10 Game DVR app to record your gameplay
+or stream your active gameplay over the internet.
+
+If you do either of these things, there’s no need to leave the service running
+on your system. Typically, it should only enable when you start recording
+gameplay or you’ve configured the feature to record your gameplay in the
+background automatically.
+
+BitLocker Drive Encryption Service:
+
+unless you use Microsoft's Encryption
+Software, you can disable this service. BitLocker Drive Encryption is a feature
+that allows users to protect data by providing encryption for entire volumes
+
+Bluetooth Audio Gateway Service:
+
+allows you to configure Cortana while using
+Bluetooth. If you do not have Bluetooth on your device or if you do not intend
+to talk to Cortana using a Bluetooth headset, you can disable it.
+
+Bluetooth Support Service:
+
+unless you use Bluetooth devices such as keyboards,
+mice, printers or phones, you can disable this service. Keep in mind that, if
+you choose to disable this service, then Bluetooth devices are no longer
+detected and recognized. Also, the already connected Bluetooth devices may fail
+to work correctly.
+
+Background Intelligent Transfer Service
+
+[optional if disabled windows update won't work]
+
+BITS transfers files in the background using idle network bandwidth. If the
+service is disabled, then any applications that depend on BITS, such as Windows
+Update or MSN Explorer, will be unable to automatically download programs and
+other information.
+
+Windows Update uses the Background Intelligent Transfer Service (BITS)
+technology which downloads updates using idle bandwidth. This technology ensures
+that Windows Update downloads only when no other active download is in progress
+on the computer. This allows you to smoothly carry on day-to-day activities even
+while updates are being downloaded in the background. It is not recommended to
+disable this service.
+
+Connected User Experiences and Telemetry:
+
+it will disable Feedback, Telemetry
+and Data Collection.
+
+Certificate Propagation:
+if you do not use SmartCards, which are sometimes used
+in large organizations, it is safe to disable this service.
+
+
+cellular time
+
+The autotimesvc service is used to set the time on your Windows computer based
+on Network Identity and Time Zone (NITZ) messages from a mobile network. The
+service checks for NITZ messages from your mobile network every 60 seconds. If
+it finds a NITZ message, it uses the time in the message to set the time on your
+computer.
+
+NOTE: This is only needed for 3G/4G/5G services connection safe to disable
+
+ConsentUX
+
+Allows ConnectUX and PC Settings to Connect and Pair with WiFi displays and
+Bluetooth devices.
+if you don't have wifi and bluetooth safe to disable
+
+Diagnostic Service Host
+
+The Service Host: Diagnostic System Host process is an integral part of the
+Windows operating system. It hosts diagnostic services that help monitor and
+troubleshoot various system issues. Its presence in Task Manager is normal and
+expected, ensuring that your computer remains healthy and stable
+
+Diagnostic Policy Service
+
+Diagnostic Policy Service (DPS) is an essential service installed by default in
+your Windows. This service aims to detect and troubleshoot the potential
+problems for the components of your Windows.
+
+
+Diagnostic System Host
+
+The Diagnostic System Host service enables problem detection, troubleshooting
+and resolution for Windows components. If this service is stopped, some
+diagnostics will no longer function. If this service is disabled, any services
+that explicitly depend on it will fail to start.
+
+Distributed transaction coordinator
+
+Distributed Transaction Coordinator utilizes a two-phase commit protocol that
+ensures that the distributed transactions are applied consistently across all
+involved nodes. The DTC server acts as the transaction manager and coordinates
+the transaction between various databases.
+
+Note: if you don't run access or oracle databse you probably don't need it.
+
+Encrypting File System:
+
+EFS provides file encryption technology for storing
+encrypted data on NTFS file systems. If you do not need to encrypt the files
+found on your hard drives, it is OK to disable it. However, if you have
+encrypted files on your drives and you disable the service, you will not be able
+to decrypt them until you restart the service.
+
+Enterprise app management service
+
+add-on for Microsoft Intune that provides a stream of third-party applications
+that IT admins can use to deploy software updates to their users and devices
+
+
+[OPTIONAL] File History Service:
+
+if you don’t intend to use Windows Backup or System
+Restore.
+
+Fax:
+
+unless you use your computer to send or receive faxes using fax resources
+available on your system (for ex. by using a fax-modem), you can disable it.
+
+IP Helper:
+
+if you don’t use IPv6 connection.
+
+Internet Connection Sharing
+
+Internet Connection Sharing, or ICS, is a built-in feature of Windows computers
+that allows multiple devices to connect to the internet using one internet
+connection on one computer.
+
+Microsoft iSCSI Initiator Service:
+
+iSCSI is an abbreviation for Internet Small
+Computer System Interface - an IP-based storage networking standard for linking
+data storage facilities. It allows client computers to access data over long
+distances on remote data centers, by using existing infrastructure (ex. over
+LAN, Internet). iSCSI devices are disks, tapes, CDs, and other storage devices
+on another networked computer that you can connect to. Sometimes these storage
+devices are part of a network called a storage area network (SAN). Unless you
+need to connect to iSCSI devices, it is safe to disable this service.
+
+McpManagementService
+
+It's File Description reads: Universal Print Management Service. Which is a
+feature of Office 365 that can be used to support remote printing. Since its
+startup type is "manual" if you're not using this feature it won't be running.
+this service does collect some telemetry for MSFT diagnostics - but many Windows
+functions do that.
+
+maps broker
+
+Some map apps, such as Windows Maps, depend on the Downloaded Maps Manager
+service, also known as MapsBroker. If you download offline maps, this service
+runs in the background to keep them up to date. Because it only runs
+occasionally, it consumes very few system resources. It's enabled by default,
+but it might become disabled by your IT department or by system management
+tools. If it's disabled, the Windows Maps app might crash, fail to launch, or
+display maps incorrectly.
+
+messaging service
+
+Service supporting text messaging and related functionality.
+
+microsoft account sign in
+
+ if you use an outlook email address, Skype ID or phone number and a password
+to sign in to Microsoft services like Microsoft 365, Xbox consoles or Windows
+10 PCs
+
+microsoft cloud identity service
+
+Determine your cloud identity model - Microsoft 365 ...
+A cloud-only identity uses user accounts that exist only in Microsoft Entra ID.
+Cloud-only identity is typically used by small organizations that do not have
+on-premises servers or do not use AD DS to manage local identities.
+
+Cloud Identity is an Identity as a Service (IDaaS) and enterprise mobility
+management (EMM) product. It offers the identity services and endpoint
+administration that are available in Google Workspace as a stand-alone product.
+
+
+Microsoft(R) DiagnosticsHub.StandardCollector.Service
+
+DiagnosticsHub.StandardCollector.Service.exe is a software component of
+Microsoft Diagnostics Hub Standard Collector. This executable file is a part of
+the Microsoft Visual Studio, a suite of component-based software development
+tools developed by Microsoft.
+
+The Microsoft Diagnostics Hub Standard Collector is a performance monitoring
+tool that collects system diagnostic information from your computer. It is used
+to monitor the performance of applications and services, especially those
+developed using Microsoft Visual Studio. This tool is particularly useful for
+developers and system administrators who need to troubleshoot performance issues
+and optimize system resources.
+
+As for why it is needed, the DiagnosticsHub.StandardCollector.Service.exe is
+essential for the proper functioning of Microsoft Visual Studio and the
+applications developed using it. It helps in identifying and resolving
+performance issues, ensuring that applications run smoothly and efficiently.
+Without this service, developers may find it difficult to diagnose and fix
+performance problems.
+
+microsoft store install service
+
+The Windows Store Install Service process runs automatically in the background
+whenever you have apps installed from the Microsoft Store. Its primary purpose
+is to ensure that your apps are up to date and to handle the installation of new
+apps
+
+microsoft windows sms router service
+
+The SmsRouter service is used for routing messages based on rules to appropriate
+clients. It is part of the Microsoft Windows SMS Router Service, which enables a
+mobile broadband device's Short Message Service (SMS) capabilities.
+
+microsoft passort and Microsoft passport container service
+
+It is a web service designed to make account login and online purchase easier.
+By relying on client side cookies, Microsoft Passport supports SSO (Single Sign
+On) among web sites that use Microsoft Passport. It is not clear how many
+business partners of Microsoft are still using Passport service.
+
+Netlogon:
+
+this service is not needed on a home computer. It maintains a secure
+channel between the local computer and the domain controller for authenticating
+users. Unless you are connecting to a network domain, this service will likely
+never be used.
+
+Natural Authentication:
+
+uses information such as the time, network, geolocation
+or Bluetooth connections to offer support for Dynamic Lock and Device Unlock. If
+you do not intend to use such features, you can disable this service.
+
+Network Connected Devices Auto-Setup:
+
+monitors and installs devices from your
+network. This feature affects the way Windows 10 and Windows 8.1 work with
+network devices like external hard drives that are connected to the router or to
+another computer in the network. Such devices can be used by features like File
+History. This tool can detect hard disks that are attached to other network PCs
+or devices and use them for backing up your personal files and folders.
+
+OneSyncSvc.
+
+The OneSyncSvc is a service related to reminders, emails, updates, to-do lists
+and more. The OneSyncSvc synchronizes your Microsoft Account, OneDrive, Windows
+Mail, Contacts, Calendar and various other apps. The Mail app and other apps, as
+well as services, are dependent upon this feature.
+
+Offline Files
+
+The Windows 10 offline files feature is a network feature of Sync Center that
+allows users to access files stored at another point on their network than their
+own computer, even if the network connection is not working. All data made
+offline are saved in the offline files folder.
+
+Payments and NFC/SE Manager:
+
+does what its name implies, which is to manage
+payments and use Near Field Communication to make transactions. It might be
+useful on new Windows devices that have an NFC chip, but on a usual desktop PC
+or laptop, you can safely disable this service.
+
+phone service
+
+Manages the telephony state on the device.and might be used by some VoIP apps.
+If you do not use such apps, it is safe to disable it
+
+Remote Desktop Configuration:
+
+Remote Desktop Protocol is a protocol developed by
+Microsoft which provides Windows users with a graphical interface to another
+computer. The client used by Microsoft is called Remote Desktop Connection. If
+you do not need to connect remotely to another computer or allow incoming remote
+connections to yours, then it is safe to disable this service.
+
+Remote Desktop Services UserMode Port Redirector:
+
+same as above.
+
+Remote Desktop Services:
+
+same as above.
+
+Remote Registry:
+
+this service enables remote users to modify the Windows
+Registry. Some say that having this service turned on can pose security issues,
+and therefore, choose to disable it. In Windows Vista and Windows 7, this
+service is set to a manual start by default, while in Windows 10 and Windows 8.1
+it is disabled.
+
+Retail Demo Service:
+
+enables you to enter your Windows 10 device in a so-called
+Retail Demo experience mode. This is used by retailers who want to give
+customers a demo for how Windows 10 works. It is doubtful any home user would
+want that.
+
+Remote action connection manager
+
+If a Windows computer connects to the internet via VPN or (unlikely these days)
+dial-up, there’s a good chance it does so using the Remote Access Connection
+Manager. The application is useful for creating secure connections to remote
+servers and other resources, helping users gain access to critical files and
+applications. If it is disabled or there are other issues with it, users will
+not be able to connect remotely using VPN.
+
+Remote action auto connection manager
+
+Creates a connection to a remote network whenever a program references a remote
+DNS or NetBIOS name or address.
+
+Routing and Remote Access service
+
+The Routing and Remote Access Service (RRAS) is used to provide site-to-site
+connectivity by using a VPN or dial-up connections. By using RRAS technology,
+you can deploy VPN connections that let users access your organization's network
+remotely.
+
+RPC Locator
+
+the Remote Procedure Call (RPC) Locator service manages the RPC name service
+database. In Windows Vista and newer versions of Windows, this service does not
+provide any functionality and is present for application compatibility.
+
+Smart Card:
+
+Smart Cards are used for safety reasons in large organizations or
+corporations. The typical home user does not need this service to be running.
+
+Smart Card Device Enumeration Service:
+same as above.
+
+Smart Card Removal Policy:
+
+same as above.
+
+Sensor Data Service
+
+A component of the Media Feature Pack supporting data acquisition from various
+sensors. Supports Windows Hello.
+
+Sensor Monitoring Service
+
+Monitors various sensors in order to expose data and adapt to system and user
+state.  If this service is stopped or disabled, the display brightness will not
+adapt to lighting conditions. Stopping this service may affect other system
+functionality and features as well.
+
+Sensor Service
+
+ service for sensors that manages different sensors' functionality. Manages
+Simple Device Orientation (SDO) and History for sensors. Loads the SDO sensor
+that reports device orientation changes.  If this service is stopped or
+disabled, the SDO sensor will not be loaded and so auto-rotation will not occur.
+History collection from Sensors will also be stopped.
+
+
+Telephony
+
+Provides Telephony API (TAPI) support for programs that control telephony
+devices on the local computer and, through the LAN, on servers that are also
+running the service.
+
+Touch Keyboard and Handwriting Panel Service+
+
+you can safely disable this service unless you use a Tablet PC. Some "Tablet PC
+Components" like the Snipping tool or Windows Journal should continue to
+function, but the Tablet PC Input Panel will not.
+
+TCP/IP NetBIOS Helper:
+
+if you are not a part of a Workgroup network.
+
+[OPTIONAL] Wi-Fi Direct Services Connection Manager Serviceopagation Service
+
+Manages connections to wireless services, including wireless display and
+docking. ONLY IF YOU DON'T USE WIFI
+
+Windows Biometric Service
+
+The Windows biometric service gives client applications the ability to capture,
+compare, manipulate, and store biometric data without gaining direct access to
+any biometric hardware or samples. The service is hosted in a privileged SVCHOST
+process.
+
+Windows Connect Now: this service is used by laptops and other mobile computers
+to connect to Wireless Networks. If you are on a desktop computer that does not
+have a wireless card, you can disable this service.
+
+Safe setting: Manual.
+
+Windows Error Reporting Service:
+
+this service is used to report system errors to
+Microsoft. Although disabling this service does not affect your Windows
+computer, letting it run when needed may help you solve problems and issues that
+occur on your system, by searching solutions available from Microsoft.
+
+Windows Camera Frame Server:
+
+if you never use a webcam or an integrated camera.
+
+Windows Mobile Hotspot Service
+
+Provides the ability to share a cellular data connection with another device.
+
+Windows Remote Management (WS-Management)
+
+Windows Remote Management (WinRM) service implements the WS-Management protocol
+for remote management. WS-Management is a standard web services protocol used
+for remote software and hardware management. The WinRM service listens on the
+network for WS-Management requests and processes them. The WinRM Service needs
+to be configured with a listener using winrm.cmd command line tool or through
+Group Policy in order for it to listen over the network. The WinRM service
+provides access to WMI data and enables event collection. Event collection and
+subscription to events require that the service is running. WinRM messages use
+HTTP and HTTPS as transports. The WinRM service does not depend on IIS but is
+preconfigured to share a port with IIS on the same machine.  The WinRM service
+reserves the /wsman URL prefix. To prevent conflicts with IIS, administrators
+should ensure that any websites hosted on IIS do not use the /wsman URL prefix.
+
+Work Folders
+
+This service syncs files with the Work Folders server, enabling you to use the
+files on any of the PCs and devices on which you've set up Work Folders.
+
+Windows PushToInstall Service
+
+Provides infrastructure support for the Microsoft Store.  This service is
+started automatically and if disabled then remote installations will not
+function properly.
+
+The Windows Push Notification System Services
+
+The Windows Push Notification Services (WNS) enable third-party developers to
+send toast, tile, badge, and raw updates from their own cloud service. This
+provides a mechanism to deliver new updates to your users in a power-efficient
+and dependable way.
+
+Windows Push Notifications User Service
+
+Windows Push Notifications is a feature introduced by Microsoft to deliver
+real-time notifications to users. These notifications can come from various
+sources, including apps, email clients, messaging services, and system updates.
+The purpose of push notifications is to keep users informed about important
+events and updates without the need to constantly check for new information
+manually.
+
+
+
+Xbox Accessory Management Service
+
+This service manages connected Xbox Accessories.
+

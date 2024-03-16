@@ -1,0 +1,264 @@
+to block in firewall
+
+netsh advfirewall firewall add rule name="All Protocol Block" protocol=any
+dir=in action=block
+
+netsh advfirewall firewall add rule name="All IGMP" protocol=2 dir=in
+action=block
+
+netsh advfirewall firewall add rule name="All GRE" protocol=47 dir=in
+action=block
+
+netsh advfirewall firewall add rule name="All VRRP" protocol=112 dir=in
+action=block
+
+netsh advfirewall firewall add rule name="All PGM" protocol=113 dir=in
+action=block
+
+netsh advfirewall firewall add rule name="All L2TP" protocol=115 dir=in
+action=block
+
+
+netsh int tcp set heuristics disabled
+netsh int tcp set global ecncapability=default
+
+
+AllJoyn router service:
+
+AllJoyn is a DCOM-like framework and protocol for making remotable method calls
+and/or sending one-way signals between applications on a distributed bus. It is
+intended to be used primarily for Internet of Things type scenarios such as
+turning on/off lights, reading temperatures, etc
+
+AllJoyn Router Service: enables Windows to communicate with nearby internet of
+Things devices. Unless you have such devices, you do not need this service to
+run. Safe setting: Manual.
+
+App installer:
+
+'Windows App Installer' is an app that is available on the Microsoft Store, it
+is an app that can be used to side-load apps using installers from outside the
+Microsoft Store, you would not need to install that app, if you do not intend to
+install Store apps from an offline installer.
+
+Captive portal
+
+The captive portal feature is a software implementation that blocks clients from
+accessing the network until user verification has been established. You can set
+up verification to allow access for both guests and authenticated users.
+Authenticated users must be validated against a database of authorized captive
+portal users before access is granted.
+
+The authentication server supports both HTTP and HTTPS Web connections. In
+addition, you can configure captive portal to use an optional HTTP port (in
+support of HTTP proxy networks). If configured, this additional port is then
+used exclusively by captive portal. Note that this optional port is in addition
+to the standard HTTP port 80, which is currently being used for all other Web
+traffic.
+
+Captive portal for wired interfaces allows the clients directly connected to the
+switch to be authenticated using a captive portal mechanism before the client is
+given access to the network. When a wired physical port is enabled for captive
+portal, the port is set in captive-portal- enabled state such that all the
+traffic coming to the port from the unauthenticated clients is dropped except
+for the ARP, DHCP, DNS and NETBIOS packets. The switch forwards these packets so
+that unauthenticated clients can get an IP address and resolve the hostname or
+domain names. Data traffic from authenticated clients goes through, and the
+rules do not apply to these packets.
+
+
+cast to device functionality
+
+Cast to Device is a feature of Windows 10 (formerly called Play to Device) that
+allows you to stream content from your computer to your television, Xbox, or any
+Miracast or DLNA supported device. If you don't use Cast to Device, removing the
+Context Menu item can help clean things up.
+
+cloud identity
+
+Cloud Identity is an Identity as a Service (IDaaS) and enterprise mobility
+management (EMM) product. It offers the identity services and endpoint
+administration that are available in Google Workspace as a stand-alone product.
+
+Dial Protocol Server
+
+The DIAL protocol (DI scover A nd L aunch) lets people launches media apps from
+a primary device, like a phone or tablet, to a remote device like a television.
+See http://www.dial-multiscreen.org for more information in the
+industry-standard protocol.
+
+Delivery Optimization
+
+Delivery Optimization in Windows 10 helps you get updates and apps quickly and
+reliably. These downloads come from Microsoft as well as other PCs on your local
+network or the Internet, and your PC may share them with other PCs.
+
+distribution transaction coordinator
+
+The operations performed on Oracle E-Business Suite using the Oracle E-Business
+adapter (through BizTalk Server, the WCF service model, or the WCF channel
+model) can be performed within a transaction scope. If the client program has
+more than one transactional resource as part of the same transaction, the
+transaction gets elevated to an MSDTC transaction. To enable the adapter to
+perform operations within the scope of an MSDTC transaction, configure MSDTC on
+the computer running the Oracle E-Business adapter, and on the Oracle E-Business
+Suite. Also, add MSDTC to the exceptions list in your firewall, which may be the
+built-in Windows Firewall.
+
+Connected Devices Platform User Service
+
+If you use smart devices in your home including but not limited to smart
+speakers like Alexa, Google home etc and other wireless authentication devices
+then the data usage is normal.
+The service does exactly that it checks for “ connected” devices and
+authenticates then so that data can be transferred between them later
+seamlessly. These also include any wireless printers, phones etc on the
+network.
+
+core networking teredo service
+
+Teredo is a temporary measure. In the long term, all IPv6 hosts should use
+native IPv6 connectivity. Teredo should be disabled when native IPv6
+connectivity becomes available.
+
+Core networking icmpv6 and ipv6
+
+disable if you do not use ipv5
+
+File and printer sharing
+
+File and printer sharing is running on the TCP/IP connection you will use to
+access the Internet. Other users on the Internet might be able to access your
+files.This prompt is a security reminder that disabling the File And Printer
+Sharing network component while you have your Dial-up Networking connection open
+prevents unauthorized access to your files, printers, and network. If the File
+And Printer Sharing component is enabled for the Transmission Control
+Protocol/Internet Protocol (TCP/IP) stack that is bound to your Dial-Up adapter,
+external users of the Internet may have access to your computer or network.
+
+ISCSI service
+
+
+ISCSI makes it possible to set up a shared-storage network where multiple
+servers and clients can access central storage resources as if the storage was a
+locally connected device.
+
+mDNS Service *
+
+Starting with Windows 10 1703 Microsoft has included native support for
+multicast DNS, or mDNS. The protocol was developed by Apple, via RFC 6762 and
+RFC 6763, as a method to perform local network name and service discovery
+without the need for central name resolution, such as a DNS Server, and without
+user interaction. Simply put, it is how Apple made AirPlay2-based services
+perform seamless setup via the Bonjour service.
+Devices and services from Microsoft, Apple, Google, and Amazon all use mDNS in
+some capacity. SmartTVs, Miracast (wireless screen mirroring), printers, set top
+boxes, wireless speakers, operating systems, and more all use mDNS. Most use it
+to resolve service records for device discovery. Others to resolve network
+names. Some do both. Our modern connected life wouldn’t be the same without
+mDNS.
+To completely lock down mDNS, disable the inbound “mDNS (UDP-In)” rules in
+Windows Defender Firewall for all profiles (Public, Private, and Domain). This
+will prevent all inbound mDNS traffic from being processed and effectively
+disable mDNS. This is not recommended for mobile workers who may need to use a
+device at home or client office that relies on mDNS for service discovery.
+
+
+MEdia center Extender
+
+
+Connected to the TV set like a set-top box, the Media Center Extender (MCX)
+streams audio and video from the Media Center PC while other applications can be
+run at the same time. Multiple MCXs can be used in different parts of the home
+simultaneously, each receiving different output from the computer.
+A device that receives multimedia data from the network and makes it available
+to the stereo or home theater system. It is known by many names (see digital
+media hub and Media Center Extender). (2) A device that transmits audio and
+video data from one location to one or more receivers.
+
+Network Discovery
+
+Network discovery refers to a setting that affects whether your PC is detected
+by other computers on the network when it is connected to that specific network,
+and whether your PC can detect other PCs and devices, such as printers, on the
+network.When in this state, your computer can detect other PCs and devices on
+the same network. People on other computers which are connected to the same
+network can see your PC and request connections to it. This is best used when
+you are connecting to a trusted private network, and these tend to be password
+protected.
+
+Performance Logs and Alerts
+
+Performance Logs and Alerts (PLA) provides application programmers the ability
+to generate alert notifications based on performance counter thresholds.
+Programmers can also use PLA to query performance data, create event tracing
+sessions, capture a computer's configuration, and trace the API calls in some of
+the Win32 system DLLs.
+
+
+proximity sharing over tcp
+
+This feature enables sharing of content between two
+PCs with proximity devices when tapped together
+
+
+TPM virtual smart card management
+
+Virtual smart cards emulate the functionality of physical smart cards, but they
+use the Trusted Platform Module (TPM) chip that is available on devices. Virtual
+smart cards don't require the use of a separate physical smart card and reader.
+
+
+Windows Feature Experience Pack
+
+The Windows Feature Experience Pack is a new way of unlocking new features on
+Windows 10 devices. Its main advantage is that it is independent of feature
+updates or other updates, so that it is possible to unlock new features on
+Windows 10 without installing a feature update.
+
+Windows peer to peer collaboration Foundation service
+
+Windows Peer-to-Peer Collaboration Foundation (P2P CF) is a framework provided
+by Microsoft that facilitates peer-to-peer communication and collaboration
+between devices running on the Windows operating system.
+
+The Peer-to-Peer Collaboration Infrastructure is a simplified implementation of
+the Microsoft Windows Peer-to-Peer Infrastructure that leverages the People Near
+Me service in Windows Vista and later platforms. It is best used for
+peer-enabled applications within a subnet for which the People Near Me service
+operates, although it can service internet endpoints or contacts as well. It
+incorporates the common Contact Manager that is used by Live Messenger and other
+Live-aware applications to determine contact endpoints, availability, and
+presence.
+
+Windows Management Instrumentation (WMI)  [Inbound only]
+
+Windows Management Instrumentation (WMI) runs as a service with the display name
+Windows Management Instrumentation and the service name winmgmt. WMI runs
+automatically at system startup under the LocalSystem account. If WMI isn't
+running, it automatically starts when the first management application or script
+requests connection to a WMI namespace.
+
+work or school account
+
+Work or school accounts are often associated with Microsoft 365 for business or
+Microsoft 365 Education products and are managed by an administrator responsible
+for assigning user accounts and Microsoft 365 licenses to people in their
+organization.
+
+your account
+
+It should be related to the cloud service of your account(Microsoft account
+sync settings between machines). So for instance. I use OneNote that is stored
+on OneDrive if I removed then my access to the either might not work.
+
+Wireless display and wireless portable services
+
+if you do not use wireless then you can safely disable it
+
+WFD Driver
+
+Specifies the Wi-Fi Direct (WFD) Protocol: Proximity Extensions, which enable
+two or more devices that are running the same application to establish a direct
+connection without requiring an intermediary, such as an infrastructure wireless
+access point (WAP).
