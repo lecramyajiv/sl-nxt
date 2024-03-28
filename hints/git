@@ -1,0 +1,111 @@
+to create a new repo in github
+install github cli
+
+1. gh auth login
+2. login using https
+3. use github.com
+3b. make sure you have a gitconfig file in your $HOME dir
+4. authenticate git with github credentials
+5. login using access token generated from github portal.
+
+Sample output
+ben@localhost:~/fonts$ gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Paste an authentication token
+Tip: you can generate a Personal Access Token here https://github.com/settings/tokens
+The minimum required scopes are 'repo', 'read:org', 'workflow'.
+? Paste your authentication token:
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as lecramyajiv
+
+to view the repo details run gh repo owner/repo
+
+gh repo view lecramyajiv/Emptydeeds
+
+lecramyajiv/Emptydeeds
+No description provided
+
+
+   Emptydeeds                                                                                                         
+                                                                                                                      
+  The logout, reboot and shutdown script can be used for any window manager that                                      
+  doesn't supply it own scripts. The menu file is for Fluxbox                                                         
+
+
+
+View this repository on GitHub: https://github.com/lecramyajiv/Emptydeeds
+
+you can also view the status by running gh status
+
+ gh status
+Assigned Issues                                                                  │ Assigned Pull Requests                                                           
+Nothing here ^_^                                                                 │ Nothing here ^_^                                                                 
+                                                                                 │                                                                                  
+Review Requests                                                                  │ Mentions                                                                         
+Nothing here ^_^                                                                 │ Nothing here ^_^                                                                 
+                                                                                 │                                                                                  
+Repository Activity
+Nothing here ^_^
+
+to create a new repo using gh cli run
+
+gn repo create repo_name --flags 
+
+at least one flag is needed example output whether it is a public, private  or internal 
+
+`--public`, `--private`, or `--internal` required when not running interactively
+
+gh repo create fonts --public
+✓ Created repository lecramyajiv/fonts on GitHub
+
+we can now use git to commit new files to our github repo
+
+to delete the repo run 
+
+h repo delete fonts
+? Type lecramyajiv/fonts to confirm deletion: lecramyajiv/fonts
+✓ Deleted repository lecramyajiv/fonts
+ben@localhost:~/fonts$ 
+
+to list all the repos in github 
+
+gh repo list
+
+to commit to the repo using git run 
+
+go to the repo dir were the files are in.
+
+git init
+git add .
+git commit -m "message"
+git remote add origin https://github.com/lecramyajiv/fonts.git
+if made typos then run
+git remote set-url origin https://github.com/repo/font
+to check run  git remote -v
+git branch -M main
+git push -u origin main 
+
+
+To commit to a different repo
+
+1.first clone the repo
+2. create a branch with a name git checkout -b [Branch Name]
+3. make the changes to the repo
+4. check the statust with git status
+5. then add the changes with git add .
+6. then commit the change with git commit -m "message"
+7. identify the remote name with git remote
+8. then push the changes to remote with git push -u origin [branch name]
+
+to update the cloned repo
+
+1. check which branch you are on with git branch
+2. switch to master branch with git checkout master
+3. add the original repo as upstream repo with git remote add upstream repo
+4. fetch the repo with git fetch upstream
+5. merge the repo with git merge upstream/master
+6. git push origin main
+
