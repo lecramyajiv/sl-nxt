@@ -1,0 +1,23 @@
+Some tewaks to make firefox better
+
+To increase the width of the firefox scrollbar do this in about config
+
+widget.non-native-theme.scrollbar.style 0  ->  4
+privacy.resistFingerprinting false  -> true
+privacy.firstparty.isolate false -> true
+geo.enabled true  -> false
+
+
+
+
+
+Might break especially banking/shopping
+
+network.http.sendRefererHeader 2 -> 0
+
+
+
+
+
+source:
+https://www.linuxquestions.org/questions/slackware-14/firefox-tips-and-tricks-4175710570/page7.html
