@@ -109,3 +109,8 @@ to update the cloned repo
 5. merge the repo with git merge upstream/master
 6. git push origin main
 
+to know the last commit run
+
+to give last commit
+
+git log -n 1 --pretty=format:%H "$origin/$branch"
