@@ -1,7 +1,7 @@
 [user]
-	name = Vijay Marcel
-	email = vijaymarcel@gmail.com
-	username = lecramyajiv
+	name = 
+	email = 
+	username = 
 [init]
 	defaultBranch = master
 [core]
@@ -19,7 +19,7 @@
 	features = line-numbers decorations
 	line-numbers = true
 [github]
-	user = lecramyajiv
+	user = 
 	token =
 [credential "https://github.com"]
 	helper = 
