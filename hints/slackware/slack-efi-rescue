@@ -23,3 +23,35 @@ mount -o bind  /dev /mnt/dev
 mount -o bind /proc /mnt/proc
 mount -o bind /sys  /mnt/sys
 chroot /mnt /bin/bash
+
+
+Setting up recovery boot in Slackware
+
+download usb-and-pxe-installers/usbboot.img from packages.slackware.com
+
+mount the usbboot.img in /mnt/tmp
+
+mount -o loop /tmp/usbboot.img /mnt/tmp
+
+Create a separate directory in your /boot directory to contain the necessary files such as /boot/recovery with the command
+
+mkdir /boot/recovery
+
+cp -rv /mnt/tmp/* /boot/recovery/
+
+umount /mnt/tmp
+
+in /etc/lilo.conf add the following lines
+
+image = /boot/recovery/huge.s
+  label = slackware-recovery
+  initrd = /boot/recovery/initrd.img
+   read-only
+
+to add memtest option add the following lines
+
+image = /boot/recovery/memtest
+  label = memtest
+  read-only
+
+and run lilo -v
