@@ -1,0 +1,4 @@
+To make the virtualbox binary work in slackware
+
+
+VBoxManage setextradata global GUI/UpdateDate never
