@@ -55,3 +55,8 @@ image = /boot/recovery/memtest
   read-only
 
 and run lilo -v
+
+
+reclaim reserved space
+
+ tune2fs -m 0 /dev/sdb1
