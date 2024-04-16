@@ -1,0 +1,3 @@
+find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chmod 0644 {} \+
+find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chown -R root:root {} \+
+cp -av $CWD/{ADVANCED.md,CHANGELOG.md,BUILD.md,README-VIM.md,README.md,LICENSE} $PKG/usr/doc/$PRGNAM-$VERSION
