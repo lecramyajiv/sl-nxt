@@ -1,3 +1,7 @@
 find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chmod 0644 {} \+
 find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chown -R root:root {} \+
 cp -av $CWD/{ADVANCED.md,CHANGELOG.md,BUILD.md,README-VIM.md,README.md,LICENSE} $PKG/usr/doc/$PRGNAM-$VERSION
+
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true

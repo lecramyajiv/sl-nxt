@@ -64,12 +64,11 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 mkdir -pv $PKG/usr/bin
-mkdir -pv $PKG/usr/doc/$PRGNAM-$VERSION
 
 install -D -v -m755 $TMP/fzf -t  $PKG/usr/bin
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+  | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -av $CWD/{ADVANCED.md,CHANGELOG.md,BUILD.md,README-VIM.md,README.md,LICENSE} $PKG/usr/doc/$PRGNAM-$VERSION
