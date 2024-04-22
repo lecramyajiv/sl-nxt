@@ -9,3 +9,13 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 
  when creating manpage dir it should be like this $PKG/usr/man/man1
 gunzip -c $CWD/city.list.json.gz > $PKG/usr/doc/$PRGNAM-$VERSION/city.list.json
+
+
+
+when git hungs up suddenly do this
+
+This is due to git/https buffer settings.
+
+Run this (taken from Git fails when pushing commit to github):
+
+git config http.postBuffer 524288000
