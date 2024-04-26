@@ -33,3 +33,7 @@ find . -name '*.ttf' -exec md5sum {} + | LC_ALL=C sort
 
 find . -type f -exec md5sum {} + | LC_ALL=C sort
 
+
+to download in parallel run
+
+parallel --gnu -a urlfile wget
