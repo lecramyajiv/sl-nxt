@@ -19,3 +19,17 @@ This is due to git/https buffer settings.
 Run this (taken from Git fails when pushing commit to github):
 
 git config http.postBuffer 524288000
+
+
+To find the md5sum of all files in a directory  while excluding hidden file  run
+
+find . -type d -path '*/.*' -prune -o -not -name '.*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum
+
+find . -not -path '*/.*' -type f -exec md5sum {} + | LC_ALL=C sort | md5sum
+
+To find the mdsum of all files in a directory run
+
+find . -name '*.ttf' -exec md5sum {} + | LC_ALL=C sort
+
+find . -type f -exec md5sum {} + | LC_ALL=C sort
+
