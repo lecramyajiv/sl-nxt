@@ -37,3 +37,8 @@ find . -type f -exec md5sum {} + | LC_ALL=C sort
 to download in parallel run
 
 parallel --gnu -a urlfile wget
+
+
+to unzip using unzip run
+
+unzip -d $TMP/han $CWD/$SRCH.zip
