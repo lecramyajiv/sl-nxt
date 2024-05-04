@@ -1,0 +1,9 @@
+free reserve space
+
+tune2fs -m 0 /dev/sdb1
+
+
+update time
+
+ntpdate time1.google.com
+replace the "0-3.centos.pool.ntp.org" or other NTP server with "time1-4.google.com" line by line.
