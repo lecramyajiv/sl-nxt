@@ -7,3 +7,9 @@ update time
 
 ntpdate time1.google.com
 replace the "0-3.centos.pool.ntp.org" or other NTP server with "time1-4.google.com" line by line.
+
+
+
+you can install oracle or openjdk java by renaming it to  jdk-16.0.1-linux-x64.tar.gz or
+ jdk-16.0.1-linux-i586.tar.gz and then use pat's java slackbuild to install it. make sure
+ you copy the profile files to /etc/profile to make sure the system find the path
