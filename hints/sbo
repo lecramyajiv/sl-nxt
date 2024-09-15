@@ -16,6 +16,31 @@ chown --from=root username gek1
 This command ensures that ownership is changed from “master” to “root” only when the current owner is “master.” It adds an additional layer of control to ownership modifications.
 
 
+to remove user from a group run
+
+gpasswd -d username groupname
+
+To verify whether the user has been successfully removed from the group, you can use the groups command:
+
+groups username
+
+Create a group with a specific GID:
+
+groupadd -g GID groupname  [a no of 1-999 check with /etc/group]
+
+to create a system group
+
+groupadd -r -g GID groupname
+
+to check if a group exists
+
+getent group groupname
+
+to delete a group
+
+sudo groupdel groupname
+
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true
 
