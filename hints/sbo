@@ -3,6 +3,19 @@ find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chown -R root:root {} \+
 cp -av $CWD/{ADVANCED.md,CHANGELOG.md,BUILD.md,README-VIM.md,README.md,LICENSE} $PKG/usr/doc/$PRGNAM-$VERSION
 
 
+chown [options] new_owner[:new_group] file(s)
+-c report when a file change is made.
+-v verbose
+
+how to Change Owner from a Particular Ownership Only
+
+To change ownership from a specific user (e.g., “root”) to another (e.g., “username”), where the current owner must be “root,” use the following syntax:
+
+chown --from=root username gek1
+
+This command ensures that ownership is changed from “master” to “root” only when the current owner is “master.” It adds an additional layer of control to ownership modifications.
+
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true
 
