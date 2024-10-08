@@ -1,3 +1,6 @@
+URL:https://raw.githubusercontent.com/DarkThrone/firefox-tweaks/refs/heads/master/firefox-tweaks.txt
+
+
 Further reading:
 
 http://kb.mozillazine.org/About:config_entries (Outdated)
