@@ -58,7 +58,7 @@ at least one flag is needed example output whether it is a public, private  or i
 
 `--public`, `--private`, or `--internal` required when not running interactively
 
-gh repo create fonts --public
+gh repo create fonts --public --add-readme --description <string>
 ✓ Created repository lecramyajiv/fonts on GitHub
 
 we can now use git to commit new files to our github repo
@@ -114,3 +114,8 @@ to know the last commit run
 to give last commit
 
 git log -n 1 --pretty=format:%H "$origin/$branch"
+
+
+to clone repo using gh:
+
+gh repo clone username/repo-name
