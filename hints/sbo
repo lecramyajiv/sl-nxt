@@ -121,3 +121,9 @@ git checkout master
 git fetch upstream
 
 
+
+to print txt file run
+
+ enscript -B -o $TMP/GPL-2.0.ps $CWD/gpl-2.0.txt
+
+
