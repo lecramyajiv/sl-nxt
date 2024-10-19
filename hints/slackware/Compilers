@@ -203,6 +203,25 @@ export OSINFO_DB_TOOLS_NETWORK_TESTS=1
 ninja -C build
 DESTDIR=$PKG ninja -C build install
 
+
+meson setup build -Dc_args="$SLKCFLAGS" -Dcpp_args="$SLKCFLAGS"  \
+  --prefix=/opt \
+  --libdir=lib${LIBDIRSUFFIX} \
+  --libexecdir=/opt/libexec \
+  --bindir=/opt/bin \
+  --sbindir=/opt/sbin \
+  --includedir=/opt/include \
+  --datadir=/opt/share \
+  --mandir=/opt/man \
+  --sysconfdir=/opt/etc \
+  --localstatedir=/opt/var \
+  --buildtype=release
+
+meson compile -C build
+DESTDIR=$PKG meson install -C build
+
+
+
 ------------------------
 from arch pkgbuild
 ------------------------
