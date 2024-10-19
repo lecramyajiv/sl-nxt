@@ -220,7 +220,13 @@ meson setup build -Dc_args="$SLKCFLAGS" -Dcpp_args="$SLKCFLAGS"  \
 meson compile -C build
 DESTDIR=$PKG meson install -C build
 
+from meson doc
 
+$ cd /path/to/source/root
+$ meson --prefix /usr --buildtype=plain builddir -Dc_args=... -Dcpp_args=... -Dc_link_args=... -Dcpp_link_args=...
+$ meson compile -C builddir
+$ meson test -C builddir
+$ DESTDIR=/path/to/staging/root meson install -C builddir
 
 ------------------------
 from arch pkgbuild
