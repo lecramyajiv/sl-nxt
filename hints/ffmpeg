@@ -16,3 +16,15 @@ An example of text inside the command:
 
 For more information about flite, visit: https://ffmpeg.org/ffmpeg-filters.html#flite or project: http://www.festvox.org/flite/download.html
 
+
+How to Use FFmpeg in Bash script?
+
+Command line one-liners are great for quick and one off FFmpeg experiences but sooner or later you’re going to want to start building custom applications for efficiency. FFmpeg can be used with almost any programming language with a couple of simple tricks. Some languages might even have libraries of their own to extend FFmpeg natively. Below are a few examples of various languages using FFmpeg:
+
+In this example, File mp4tomp3.sh converts all mp4 files in a folder to mp3
+
+for i in *.mp4; do
+	OUTPUT=${i%.mp4}
+	echo $OUTPUT
+	ffmpeg -i "$i" $OUTPUT.mp3
+done
