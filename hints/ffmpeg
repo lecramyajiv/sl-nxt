@@ -1,0 +1,18 @@
+(FFmpeg) How to Generate Text to Speech Audio?
+
+Tip: You’ll need to enable –enable-libflite for this filter to work.
+
+Generating text to speech is a great feature to have locally on a computer. From using it in a YouTube video to making memes on Twitter, once you learn this filter, you’re creating content at new speeds.
+
+There are two methods to set text and generate speech with flite; Either from a file or inside in the command.
+
+An example of text from a text file (speech.txt):
+
+ $ ffmpeg -f lavfi -i "flite=textfile=speech.txt" output.mp3
+
+An example of text inside the command:
+
+ $ ffmpeg -f lavfi -i flite=text='Hello World!' output.mp3
+
+For more information about flite, visit: https://ffmpeg.org/ffmpeg-filters.html#flite or project: http://www.festvox.org/flite/download.html
+
