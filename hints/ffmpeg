@@ -1,3 +1,5 @@
+http://johnriselvato.com/ffmpeg-how-to-merge-multiple-mp3s-into-one-track/
+
 (FFmpeg) How to Generate Text to Speech Audio?
 
 Tip: You’ll need to enable –enable-libflite for this filter to work.
@@ -28,3 +30,26 @@ for i in *.mp4; do
 	echo $OUTPUT
 	ffmpeg -i "$i" $OUTPUT.mp3
 done
+
+(FFmpeg) How to merge multiple mp3s into one track?
+
+Merging audio with FFMPEG is one of the most searched questions on the internet and couldn’t be any easier. The only difference is a txt file with a list of mp3 tracks must be made before the merging can begin. Below is an example list inside the file “file.txt”:
+
+file 'track1.mp3'
+file 'track2.mp3'
+file 'track3.mp3'
+
+Next, using the following FFMPEG one-liner, all 3 mp3 files can be merged into one long track:
+
+  $ ffmpeg -f concat -i file.txt -c copy full.mp3
+
+concat or concatenate, is the process of combining media files. In this example, exactly the same codec and parameters are required for joining.
+
+In this example, ffmpeg lacks a specific media file as an input but a list from a external list (file.txt), this -f is used to “force” and input file.
+
+NOTE: this will work for any audio or video format.
+
+concat
+	Indicates the argument that combines multiple media files
+-f
+	Indicates the forces an input or output
