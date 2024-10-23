@@ -53,3 +53,9 @@ concat
 	Indicates the argument that combines multiple media files
 -f
 	Indicates the forces an input or output
+
+How to extract all frames (jpg) from a video?
+
+$ ffmpeg -i input.mp4 ./frames/output-%03d.jpg
+
+NOTE: the ‘frames’ folder must exist else an error will prevent the extraction from completeing.
