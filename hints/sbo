@@ -127,3 +127,13 @@ to print txt file run
  enscript -B -o $TMP/GPL-2.0.ps $CWD/gpl-2.0.txt
 
 
+ for git slackbuilds
+
+ VERSION=$(expr $(printf "r%s-%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"))
+
+ VERSION=$(expr $(printf "r%s-%s-%s" "$(git rev-list --count HEAD)" "$(git show -s --format=%ci | cut -d ' ' -f 1 | sed 's/-//g')" "$(git rev-parse --short HEAD)"))
+
+ VERSION=$(expr $(printf "%s_%s" "$(git show -s --format=%ci | cut -d ' ' -f 1 | sed 's/-//g')" "$(git rev-parse --short HEAD)"))
+
+
+
