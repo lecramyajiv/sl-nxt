@@ -136,4 +136,6 @@ to print txt file run
  VERSION=$(expr $(printf "%s_%s" "$(git show -s --format=%ci | cut -d ' ' -f 1 | sed 's/-//g')" "$(git rev-parse --short HEAD)"))
 
 
+to check the linked library versions use this command
 
+ objdump -p /home/ffmpeg | grep NEEDED
